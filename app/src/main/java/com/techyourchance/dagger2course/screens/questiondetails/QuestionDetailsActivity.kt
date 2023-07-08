@@ -2,13 +2,9 @@ package com.techyourchance.dagger2course.screens.questiondetails
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.techyourchance.dagger2course.Constants
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.networking.StackoverflowApi
