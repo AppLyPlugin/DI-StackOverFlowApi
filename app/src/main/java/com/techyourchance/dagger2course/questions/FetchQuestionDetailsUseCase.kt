@@ -8,21 +8,21 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class FetchQuestionsUseCase(
+class FetchQuestionDetailsUseCase(
     private val stackoverflowApi: StackoverflowApi
 ) {
 
     sealed class Result {
-        class Success(val questions: List<Question>) : Result()
-        object Failure : Result()
+        data class Success(val question: QuestionWithBody) : Result()
+        object Failure: Result()
     }
 
-    suspend fun fetchLatestQuestions(): Result {
+    suspend fun fetchQuestion(questionId: String): Result {
         return withContext(Dispatchers.IO) {
             try {
-                val response = stackoverflowApi.lastActiveQuestions(20)
+                val response = stackoverflowApi.questionDetails(questionId)
                 if (response.isSuccessful && response.body() != null) {
-                    return@withContext Result.Success(response.body()!!.questions)
+                    return@withContext Result.Success(response.body()!!.question)
                 } else {
                     return@withContext Result.Failure
                 }
