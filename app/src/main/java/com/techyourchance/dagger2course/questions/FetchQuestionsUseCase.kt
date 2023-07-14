@@ -13,7 +13,7 @@ class FetchQuestionsUseCase(
 ) {
 
     sealed class Result {
-        class Success(val questions: List<Question>) : Result()
+        data class Success(val questions: List<Question>) : Result()
         object Failure : Result()
     }
 
