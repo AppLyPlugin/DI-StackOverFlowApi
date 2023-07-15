@@ -1,16 +1,15 @@
 package com.techyourchance.dagger2course.common.dependencyinjection
 
+import com.techyourchance.dagger2course.common.dependencyinjection.presentation.PresentationComponent
 import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
 import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.viewsMvc.ViewMvcFactory
-import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
-import com.techyourchance.dagger2course.screens.questionslist.QuestionListFragment
 import java.lang.reflect.Field
 
 class Injector(
-    private val compositionRoot: PresentationCompositionRoot
+    private val compositionRoot: PresentationComponent
 ) {
     fun inject(client: Any) {
         for (field in getAllFields(client)) {
@@ -50,22 +49,22 @@ class Injector(
 
         when (type) {
             DialogsNavigator::class.java -> {
-                return compositionRoot.dialogsNavigator
+                return compositionRoot.dialogsNavigator()
             }
             ScreensNavigator::class.java -> {
-                return compositionRoot.screensNavigator
+                return compositionRoot.screensNavigator()
             }
             FetchQuestionsUseCase::class.java -> {
-                return compositionRoot.fetchQuestionsUseCase
+                return compositionRoot.fetchQuestionsUseCase()
             }
             FetchQuestionsUseCase::class.java -> {
-                return compositionRoot.fetchQuestionsUseCase
+                return compositionRoot.fetchQuestionsUseCase()
             }
             FetchQuestionDetailsUseCase::class.java -> {
-                return compositionRoot.fetchQuestionDetailsUseCase
+                return compositionRoot.fetchQuestionDetailsUseCase()
             }
             ViewMvcFactory::class.java -> {
-                return compositionRoot.viewMvcFactory
+                return compositionRoot.viewMvcFactory()
             }
             else -> {
                 throw Exception("Unsupported service type $type")
