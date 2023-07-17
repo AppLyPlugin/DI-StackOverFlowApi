@@ -18,15 +18,18 @@ import com.techyourchance.dagger2course.screens.common.viewsMvc.ViewMvcFactory
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsViewMvc
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
 class QuestionListFragment: BaseFragment(), QuestionsListViewMvc.Listener {
 
     val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
     private lateinit var viewMvc: QuestionsListViewMvc
-    @field:Service private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
+
+    @Inject lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @Inject lateinit var dialogsNavigator: DialogsNavigator
+    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
