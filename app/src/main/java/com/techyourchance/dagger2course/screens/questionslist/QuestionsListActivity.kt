@@ -17,10 +17,14 @@ import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsA
 import kotlinx.coroutines.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class QuestionsListActivity : BaseActivity() {
 
+    @Inject lateinit var screensNavigator: ScreensNavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.layout_frame)

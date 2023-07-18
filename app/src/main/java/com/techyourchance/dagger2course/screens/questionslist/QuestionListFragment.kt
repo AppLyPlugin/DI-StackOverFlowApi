@@ -32,9 +32,8 @@ class QuestionListFragment: BaseFragment(), QuestionsListViewMvc.Listener {
     @Inject lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
-
-       injector.inject(this)
     }
 
     override fun onCreateView(
