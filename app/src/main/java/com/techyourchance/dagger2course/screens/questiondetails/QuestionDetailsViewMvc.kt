@@ -5,16 +5,20 @@ import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.questions.Question
 import com.techyourchance.dagger2course.questions.QuestionWithBody
+import com.techyourchance.dagger2course.screens.common.imageloader.ImageLoader
 import com.techyourchance.dagger2course.screens.common.toolbar.MyToolbar
 import com.techyourchance.dagger2course.screens.common.viewsMvc.BaseViewMvc
+import org.w3c.dom.Text
 
 class QuestionDetailsViewMvc(
         private val layoutInflater: LayoutInflater,
+        private val imageLoader: ImageLoader,
         private val parent: ViewGroup?
 ): BaseViewMvc<QuestionDetailsViewMvc.Listener>(
     layoutInflater,
@@ -29,6 +33,8 @@ class QuestionDetailsViewMvc(
     private val toolbar: MyToolbar
     private val swipeRefresh: SwipeRefreshLayout
     private val txtQuestionBody: TextView
+    private val imgUser: ImageView
+    private val txtUserName: TextView
 
     init {
 
@@ -45,6 +51,9 @@ class QuestionDetailsViewMvc(
         // init pull-down-to-refresh (used as a progress indicator)
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.isEnabled = false
+
+        imgUser = findViewById(R.id.img_user)
+        txtUserName = findViewById(R.id.txt_user_name)
     }
 
     fun bindQuestionBody(question: QuestionWithBody) {
@@ -54,6 +63,8 @@ class QuestionDetailsViewMvc(
             @Suppress("DEPRECATION")
             txtQuestionBody.text = Html.fromHtml(question.body)
         }
+        imageLoader.loadImage(question.owner.imageUrl, imgUser)
+        txtUserName.text = question.owner.name
     }
 
     fun showProgressIndication() {

@@ -7,8 +7,7 @@ import com.techyourchance.dagger2course.common.dependencyinjection.activity.Acti
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
 import javax.inject.Inject
 
-@ActivityScope
-class ScreensNavigator @Inject constructor(private val activity: AppCompatActivity) {
+class ScreensNavigator(private val activity: AppCompatActivity) {
 
     fun toQuestionDetails(questionId: String){
         QuestionDetailsActivity.start(activity, questionId)
