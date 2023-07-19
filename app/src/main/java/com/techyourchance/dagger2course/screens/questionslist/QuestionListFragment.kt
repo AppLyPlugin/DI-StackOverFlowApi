@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.techyourchance.dagger2course.common.dependencyinjection.Service
-import com.techyourchance.dagger2course.questions.FetchQuestionDetailsUseCase
 import com.techyourchance.dagger2course.questions.FetchQuestionsUseCase
 import com.techyourchance.dagger2course.questions.Question
 import com.techyourchance.dagger2course.screens.common.ScreensNavigator
@@ -16,7 +13,6 @@ import com.techyourchance.dagger2course.screens.common.dialogs.DialogsNavigator
 import com.techyourchance.dagger2course.screens.common.fragment.BaseFragment
 import com.techyourchance.dagger2course.screens.common.viewsMvc.ViewMvcFactory
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsActivity
-import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsViewMvc
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
