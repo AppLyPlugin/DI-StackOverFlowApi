@@ -19,7 +19,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
     @Inject lateinit var fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
     @Inject lateinit var dialogsNavigator: DialogsNavigator
-    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var screensNavigatorImpl: ScreensNavigator
     @Inject lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
     }
 
     override fun onBackClicked() {
-        screensNavigator.navigateBack()
+        screensNavigatorImpl.navigateBack()
     }
 
     companion object {

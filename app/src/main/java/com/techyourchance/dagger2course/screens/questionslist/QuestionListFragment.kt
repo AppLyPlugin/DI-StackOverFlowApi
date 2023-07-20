@@ -24,7 +24,7 @@ class QuestionListFragment: BaseFragment(), QuestionsListViewMvc.Listener {
 
     @Inject lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
     @Inject lateinit var dialogsNavigator: DialogsNavigator
-    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var screensNavigatorImpl: ScreensNavigator
     @Inject lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +88,7 @@ class QuestionListFragment: BaseFragment(), QuestionsListViewMvc.Listener {
     }
 
     override fun onQuestionClicked(clickedQuestion: Question) {
-        screensNavigator.toQuestionDetails(clickedQuestion.id)
+        screensNavigatorImpl.toQuestionDetails(clickedQuestion.id)
     }
 
 }
