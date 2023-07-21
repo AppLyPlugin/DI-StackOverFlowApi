@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.techyourchance.dagger2course.R
 import com.techyourchance.dagger2course.questions.Question
+import com.techyourchance.dagger2course.screens.common.toolbar.MyToolbar
 import com.techyourchance.dagger2course.screens.common.viewsMvc.BaseViewMvc
 import com.techyourchance.dagger2course.screens.questiondetails.QuestionDetailsViewMvc
 
 class QuestionsListViewMvc(
-        layoutInflater: LayoutInflater,
-        parent: ViewGroup?
-): BaseViewMvc<QuestionsListViewMvc.Listener>(
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?
+) : BaseViewMvc<QuestionsListViewMvc.Listener>(
     layoutInflater,
     parent,
     R.layout.layout_questions_list
@@ -26,16 +27,24 @@ class QuestionsListViewMvc(
     interface Listener {
         fun onRefreshClicked()
         fun onQuestionClicked(clickedQuestion: Question)
+        fun onViewModelClicked()
     }
 
+    private val toolbar: MyToolbar
     private val swipeRefresh: SwipeRefreshLayout
     private val recyclerView: RecyclerView
     private val questionsAdapter: QuestionsAdapter
 
     private val context: Context get() = rootView.context
 
-    init {
 
+    init {
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.setViewModelListener {
+            for (listener in listeners) {
+                listener.onViewModelClicked()
+            }
+        }
         // init pull-down-to-refresh
         swipeRefresh = findViewById(R.id.swipeRefresh)
         swipeRefresh.setOnRefreshListener {
@@ -47,7 +56,7 @@ class QuestionsListViewMvc(
         // init recycler view
         recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        questionsAdapter = QuestionsAdapter{ clickedQuestion ->
+        questionsAdapter = QuestionsAdapter { clickedQuestion ->
             for (listener in listeners) {
                 listener.onQuestionClicked(clickedQuestion)
             }
@@ -71,7 +80,7 @@ class QuestionsListViewMvc(
     }
 
     class QuestionsAdapter(
-            private val onQuestionClickListener: (Question) -> Unit
+        private val onQuestionClickListener: (Question) -> Unit
     ) : RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder>() {
 
         private var questionsList: List<Question> = ArrayList(0)
@@ -87,7 +96,7 @@ class QuestionsListViewMvc(
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
             val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.layout_question_list_item, parent, false)
+                .inflate(R.layout.layout_question_list_item, parent, false)
             return QuestionViewHolder(itemView)
         }
 

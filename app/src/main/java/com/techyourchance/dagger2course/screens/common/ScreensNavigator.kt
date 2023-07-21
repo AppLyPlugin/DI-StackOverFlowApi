@@ -4,5 +4,5 @@ interface ScreensNavigator {
 
     fun toQuestionDetails(questionId: String)
     fun navigateBack()
-
+    fun toViewModel()
 }
