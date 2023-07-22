@@ -10,10 +10,11 @@ import javax.inject.Provider
 
 class MyViewModel @Inject constructor(
     private val fetchQuestionsUseCase: FetchQuestionsUseCase,
-    private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase
+    private val fetchQuestionDetailsUseCase: FetchQuestionDetailsUseCase,
+    private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
-    private val _questions = MutableLiveData<List<Question>>()
+    private val _questions: MutableLiveData<List<Question>> = savedStateHandle.getLiveData("questions")
     val questions: LiveData<List<Question>> = _questions
 
     init{
