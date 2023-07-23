@@ -7,11 +7,4 @@ import com.techyourchance.dagger2course.common.dependencyinjection.service.Servi
 
 abstract  class BaseService: Service() {
 
-    private val appComponent get() = (application as MyApplication).appComponent
-
-    val serviceComponent by lazy {
-        appComponent.newServiceComponent(ServiceModule(this))
-    }
-
-
 }

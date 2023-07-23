@@ -5,11 +5,15 @@ import com.techyourchance.dagger2course.Constants
 import com.techyourchance.dagger2course.networking.StackoverflowApi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
-class AppModule(val application: Application)
+@InstallIn(SingletonComponent::class)
+class AppModule()
 {
 
     @Provides
@@ -22,10 +26,7 @@ class AppModule(val application: Application)
     }
 
     @Provides
-    fun application() = application
-
     @AppScope
-    @Provides
     fun stackoverflowApi(retrofit: Retrofit) = retrofit.create(StackoverflowApi::class.java)
 
 }
