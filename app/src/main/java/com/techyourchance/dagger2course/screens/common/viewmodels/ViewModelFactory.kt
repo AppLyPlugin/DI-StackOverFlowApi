@@ -13,9 +13,7 @@ import javax.inject.Provider
 
 class ViewModelFactory @Inject constructor(
 //    Dependecy Injection Multibinding
-//    private val providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>,
-    private val fetchQuestionUseCaseProvider: Provider<FetchQuestionsUseCase>,
-    private val fetchQuestionDetailsUseCaseProvider: Provider<FetchQuestionDetailsUseCase>,
+    private val providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>,
     savedStateRegistryOwner: SavedStateRegistryOwner
 ) : AbstractSavedStateViewModelFactory(savedStateRegistryOwner, null) {
 
@@ -24,20 +22,36 @@ class ViewModelFactory @Inject constructor(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        return when (modelClass) {
-            MyViewModel::class.java ->
-                 MyViewModel(
-                    fetchQuestionUseCaseProvider.get(),
-                    fetchQuestionDetailsUseCaseProvider.get(),
-                    handle
-                ) as T
-            else -> throw java.lang.RuntimeException("Unsupported View Model Class: $modelClass")
-        }
-    }
+        val provider = providers[modelClass]
+        val viewModel= provider?.get() as T ?: throw java.lang.RuntimeException("Unsupported View Model Class: $modelClass")
 
+        if(viewModel is SaveStateViewModel){
+            viewModel.init(handle)
+        }
+
+        return viewModel as T
+    }
+}
+
+//
+//      Dependency Injection
+//        val viewModel = when (modelClass) {
+//            MyViewModel::class.java ->
+//                 MyViewModel(
+//                    fetchQuestionUseCaseProvider.get(),
+//                    fetchQuestionDetailsUseCaseProvider.get()
+//                ) as T
+//            else -> throw java.lang.RuntimeException("Unsupported View Model Class: $modelClass")
+//        }
+//
+//        if(viewModel is SaveStateViewModel){
+//            viewModel.init(handle)
+//        }
+//
+//
 //      Dependecy Injection Multibinding
 //    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 //        val provider = providers[modelClass]
 //        return provider?.get() as T ?: throw java.lang.RuntimeException("Unsupported View Model Class: $modelClass")
 //    }
-}
+

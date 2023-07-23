@@ -1,4 +1,4 @@
-package com.techyourchance.dagger2course.common.dependencyinjection
+package com.techyourchance.dagger2course.common.dependencyinjection.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
